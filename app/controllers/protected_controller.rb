@@ -4,16 +4,14 @@ class ProtectedController < ApplicationController
 
   protected
 
-  def current_user
-    @current_user
-  end
+  attr_reader :current_user
 
   private
 
   def authenticate_user
     @current_user = User.find(user_id)
   rescue JWT::DecodeError, ActiveRecord::RecordNotFound
-    return render(json: {}, status: :unauthorized)
+    render(json: {}, status: :unauthorized)
   end
 
   def user_id
@@ -28,6 +26,6 @@ class ProtectedController < ApplicationController
   def bearer_token
     pattern = /^Bearer /
     header  = request.headers.fetch('Authorization', nil)
-    header.gsub(pattern, '') if header && header.match(pattern)
+    header.gsub(pattern, '') if header&.match(pattern)
   end
 end

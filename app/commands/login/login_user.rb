@@ -15,7 +15,7 @@ module Login
       user = user_fetcher.call(user_data)
       token = jwt_encrypter.call(user)
 
-      {token: token, user: user}
+      { token: token, user: user }
     end
 
     private

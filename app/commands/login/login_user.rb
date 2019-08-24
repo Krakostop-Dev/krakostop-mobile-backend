@@ -11,7 +11,6 @@ module Login
 
       user_data = google_token_verifier.call(google_token)
       user = user_fetcher.call(user_data)
-
     end
 
     private

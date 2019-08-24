@@ -1,12 +1,12 @@
-class LoginsController <  ApplicationController
+class LoginsController < ApplicationController
   def create
     payload = login_user.call(google_token)
     status = :ok
   rescue GoogleTokenError => e
-    payload = {error: e.message}
+    payload = { error: e.message }
     status = :bad_request
   rescue GoogleEndpointError => e
-    payload = {error: e.message}
+    payload = { error: e.message }
     status = :service_unavailable
   ensure
     render(json: payload, status: status)

@@ -14,7 +14,7 @@ module Login
     private
 
     def perform_request(token)
-      self.class.get("/tokeninfo", { query: { id_token: token } })
+      self.class.get('/tokeninfo', query: { id_token: token })
     rescue HTTParty::Error, SocketError
       raise(GoogleEndpointError, 'Error connecting to Google')
     end

@@ -1,7 +1,6 @@
 module Login
   class GoogleTokenVerifier
-    include HTTParty
-    base_uri 'https://oauth2.googleapis.com'
+    VERIFY_URL = 'https://oauth2.googleapis.com/tokeninfo'.freeze
 
     def call(token)
       Retryable.retryable(tries: 3, on: GoogleEndpointError) do
@@ -14,7 +13,7 @@ module Login
     private
 
     def perform_request(token)
-      self.class.get('/tokeninfo', query: { id_token: token })
+      HTTParty.get(VERIFY_URL, query: { id_token: token })
     rescue HTTParty::Error, SocketError
       raise(GoogleEndpointError, 'Error connecting to Google')
     end

@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2019_08_24_123200) do
     t.string "first_name"
     t.string "last_name"
     t.string "email", null: false
-    t.boolean "login_state", default: false
+    t.boolean "verified_login", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

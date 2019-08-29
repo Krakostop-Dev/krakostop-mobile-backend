@@ -1,0 +1,1 @@
+class GoogleEndpointError < StandardError; end

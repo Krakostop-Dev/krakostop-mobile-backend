@@ -3,7 +3,14 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       post :login, to: 'logins#create'
+
       resource :profile, only: [:show, :update]
+
+      resources :locations, only: [:create] do
+        collection do
+          get :latest
+        end
+      end
     end
   end
 

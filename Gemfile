@@ -12,6 +12,8 @@ gem 'httparty'
 gem 'retryable'
 gem 'jwt'
 
+gem 'geokit-rails'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

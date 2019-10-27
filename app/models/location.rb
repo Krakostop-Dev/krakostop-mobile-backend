@@ -6,17 +6,17 @@ class Location < ApplicationRecord
   validates :lat, presence: true
   validates :lng, presence: true
 
-  scope :latest, -> {
+  scope :latest, lambda {
     find_by_sql(
       <<-SQL
-        SELECT locations.* 
+        SELECT locations.*
         FROM (
           SELECT MAX(locations.created_at) as created_at_max, user_id
           FROM locations
           GROUP BY user_id
         ) latest
-        JOIN locations 
-        ON locations.user_id = latest.user_id 
+        JOIN locations
+        ON locations.user_id = latest.user_id
         AND locations.created_at = latest.created_at_max
       SQL
     )

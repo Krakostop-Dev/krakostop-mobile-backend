@@ -11,7 +11,7 @@ class ProtectedController < ApplicationController
   def authenticate_user
     @current_user = User.find(user_id)
   rescue JWT::DecodeError, ActiveRecord::RecordNotFound
-    render(json: {}, status: :unauthorized)
+    render(json: {error: "Unauthorized" }, status: :unauthorized)
   end
 
   def user_id

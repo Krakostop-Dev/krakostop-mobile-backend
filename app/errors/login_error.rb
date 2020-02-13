@@ -1,0 +1,1 @@
+class LoginError < StandardError; end

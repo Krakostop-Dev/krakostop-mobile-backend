@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_143503) do
+ActiveRecord::Schema.define(version: 2020_02_13_203356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 2020_02_10_143503) do
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
+  create_table "pairs", force: :cascade do |t|
+    t.boolean "finished", default: false, null: false
+    t.integer "pair_nr"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pair_nr"], name: "index_pairs_on_pair_nr", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -32,7 +40,12 @@ ActiveRecord::Schema.define(version: 2020_02_10_143503) do
     t.boolean "verified_login", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone"
+    t.string "city"
+    t.string "verification_code"
+    t.bigint "pair_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["pair_id"], name: "index_users_on_pair_id"
   end
 
 end

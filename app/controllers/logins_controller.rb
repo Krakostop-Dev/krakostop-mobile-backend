@@ -1,24 +1,32 @@
 class LoginsController < ApplicationController
   def create
-    payload = login_user.call(google_token)
-    status = :ok
-  rescue GoogleTokenError => e
-    payload = { error: e.message }
-    status = :bad_request
-  rescue GoogleEndpointError => e
-    payload = { error: e.message }
-    status = :service_unavailable
-  ensure
-    render(json: payload, status: status)
+    Login::SendVerificationCode.new.call(create_params)
+    render(json: {}, status: :ok)
+  rescue LoginError => e
+    render(json: { error: e.message }, status: :service_unavailable)
+  rescue LoginUnauthorizedError => e
+    render(json: { error: e.message }, status: :unauthorized)
+  end
+
+  def update
+    user = User.find_by(update_params)
+    if user.present?
+      token = Login::JwtEncrypter.new.call(user)
+      render(json: { token: token, user: user },
+             status: :ok)
+    else
+      render(json: { error: 'No user matching credentials' },
+             status: :unauthorized)
+    end
   end
 
   private
 
-  def google_token
-    params.require(:token)
+  def create_params
+    params.require(%i[email pair_nr])
   end
 
-  def login_user
-    Login::LoginUser.new
+  def update_params
+    params.require(%i[email verification_code])
   end
 end

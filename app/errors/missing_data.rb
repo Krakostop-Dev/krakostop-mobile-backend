@@ -1,0 +1,1 @@
+class MissingData < StandardError; end

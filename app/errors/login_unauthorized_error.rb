@@ -1,0 +1,1 @@
+class LoginUnauthorizedError < StandardError; end

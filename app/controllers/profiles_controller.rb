@@ -11,6 +11,11 @@ class ProfilesController < ProtectedController
   private
 
   def profile_params
-    params.permit(:first_name, :last_name).merge(verified_login: true)
+    params.permit(
+        :first_name,
+        :last_name,
+        :phone,
+        :city
+    ).merge(verified_login: true)
   end
 end

@@ -12,7 +12,7 @@ module Login
       end
 
       generate_verification_code(user)
-      # TODO send mail here
+      ::UserMailer.verification_code(user: user).deliver_now
     rescue MissingData
       raise(LoginUnauthorizedError, 'Wrong credentials')
     end

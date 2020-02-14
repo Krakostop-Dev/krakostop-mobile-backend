@@ -1,6 +1,6 @@
 class Pair < ApplicationRecord
   has_many :users
-  has_many :locations, through: :users
+  has_many :locations
 
   validate :validate_users_amount
 
@@ -13,6 +13,6 @@ class Pair < ApplicationRecord
   end
 
   def latest_location
-    locations.merge(Location.latest).order(:created_at).last
+    locations.merge(Location.latest)
   end
 end

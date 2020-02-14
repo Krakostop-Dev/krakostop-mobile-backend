@@ -24,9 +24,11 @@ class LoginsController < ApplicationController
 
   def create_params
     params.require(%i[email pair_nr])
+    params.permit(%i[email pair_nr]).to_h.symbolize_keys
   end
 
   def update_params
     params.require(%i[email verification_code])
+    params.permit(%i[email verification_code]).to_h.symbolize_keys
   end
 end

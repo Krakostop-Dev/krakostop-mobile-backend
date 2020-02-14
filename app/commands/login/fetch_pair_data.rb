@@ -16,7 +16,7 @@ module Login
       {
         method: 'check_email',
         login: 'krako_api',
-        password: 2_215_885_154,
+        password: ENV['KRAKOSTOP_API_PASSWORD'],
         email: email,
         nr_pair: pair_nr
       }

@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  has_many :locations
   belongs_to :pair
 
   validates :email,
@@ -9,7 +8,7 @@ class User < ApplicationRecord
 
   delegate :finished?, to: :pair
 
-  def latest_location
-    locations.merge(Location.latest)
+  def serializable_hash(options = {})
+    super(options).except('verification_code')
   end
 end

@@ -26,6 +26,8 @@
 .idea
 *.iml
 
+.ruby-env
+
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.

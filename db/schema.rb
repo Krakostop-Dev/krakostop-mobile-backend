@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_203356) do
+ActiveRecord::Schema.define(version: 2020_02_14_001155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,11 +18,11 @@ ActiveRecord::Schema.define(version: 2020_02_13_203356) do
   create_table "locations", force: :cascade do |t|
     t.decimal "lat", precision: 15, scale: 10, null: false
     t.decimal "lng", precision: 15, scale: 10, null: false
-    t.bigint "user_id", null: false
+    t.bigint "pair_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lat", "lng"], name: "index_locations_on_lat_and_lng"
-    t.index ["user_id"], name: "index_locations_on_user_id"
+    t.index ["pair_id"], name: "index_locations_on_pair_id"
   end
 
   create_table "pairs", force: :cascade do |t|

@@ -27,7 +27,6 @@ module Login
 
     def generate_verification_code(user)
       code = rand(10 ** 6).to_s
-      puts(code)
       user.update!(verification_code: code)
     end
   end

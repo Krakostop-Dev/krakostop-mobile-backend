@@ -1,0 +1,93 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/login":
+    post:
+      summary: Sends verification code
+      tags:
+      - Login
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            pair_nr:
+              type: integer
+          required:
+          - email
+          - pair_nr
+          example:
+            email: john@example.org
+            pair_nr: 2
+      responses:
+        '200':
+          description: Verification code was sent
+        '401':
+          description: Wrong credentials, verification code wasn't sent
+          examples:
+            application/json:
+              error: Wrong credentials
+        '503':
+          description: Error with connection to external api occured, verification
+            code wasn't sent
+          examples:
+            application/json:
+              error: Something went wrong
+    patch:
+      summary: Sends verification code
+      tags:
+      - Login
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: data
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            verification_code:
+              type: integer
+          required:
+          - email
+          - pair_nr
+          example:
+            email: john@example.org
+            verification_code: '123456'
+      responses:
+        '200':
+          description: Verification code and emails are correct, token is returned
+          examples:
+            application/json:
+              token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNDF9._anfCnoJEWoPv4cx-x3kEEenj0Uhuft8tJxuw5xgsiA
+              user:
+                id: 141
+                first_name: first_name3
+                last_name: last_name3
+                email: john@example.org
+                verified_login: false
+                created_at: '2020-02-15T02:41:25.968Z'
+                updated_at: '2020-02-15T02:41:25.968Z'
+                phone: '867108028'
+                city: Kraków
+                pair_id: 71
+        '401':
+          description: Verification code and emails are incorrect, error is returned
+          examples:
+            application/json:
+              error: No user matching credentials

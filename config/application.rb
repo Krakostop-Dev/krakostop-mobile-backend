@@ -19,6 +19,10 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+RSpec.configure do |config|
+  config.swagger_dry_run = false
+end
+
 module KrakostopMobileBackend
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

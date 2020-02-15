@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 describe 'Login' do
   path '/api/v1/login' do
-    
+
     post 'Sends verification code' do
       tags 'Login'
       consumes 'application/json'
@@ -104,7 +104,7 @@ describe 'Login' do
       end
     end
 
-    patch 'Sends verification code' do
+    patch 'Returns authentication token' do
       tags 'Login'
       consumes 'application/json'
       produces 'application/json'

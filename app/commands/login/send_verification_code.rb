@@ -22,11 +22,11 @@ module Login
     attr_reader :download_and_create_pair
 
     def find_user(email, pair_nr)
-      User.joins(:pair).find_by(email: email, pairs: {pair_nr: pair_nr})
+      User.joins(:pair).find_by(email: email, pairs: { pair_nr: pair_nr })
     end
 
     def generate_verification_code(user)
-      code = rand(10 ** 6).to_s
+      code = rand(10**6).to_s
       user.update!(verification_code: code)
     end
   end

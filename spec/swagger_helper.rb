@@ -31,7 +31,7 @@ RSpec.configure do |config|
 
   config.after do |example|
     if example.metadata[:save_response]
-      example.metadata[:response][:examples] = { "application/json" => JSON.parse(response.body, symbolize_names: true) }
+      example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
     end
 
     request_example_name = example.metadata[:save]

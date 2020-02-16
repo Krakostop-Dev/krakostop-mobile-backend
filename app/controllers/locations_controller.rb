@@ -7,7 +7,7 @@ class LocationsController < ProtectedController
     end
 
     location = Location.create!(loc_params)
-    current_user.pair.update!(finished: true) if finished_race?
+    current_user.pair.update!(finished: true) if finished_race?(location)
     render(json: location, status: :created)
   end
 

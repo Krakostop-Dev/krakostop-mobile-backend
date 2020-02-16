@@ -39,8 +39,9 @@ paths:
             application/json:
               error: Wrong credentials
         '503':
-          description: Error with connection to external api occured, verification
-            code wasn't sent
+          description: |-
+            Error with connection to external api occured,
+                           verification code wasn't sent
           examples:
             application/json:
               error: Something went wrong
@@ -74,20 +75,22 @@ paths:
           description: Verification code and emails are correct, token is returned
           examples:
             application/json:
-              token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNDd9.3T8BYuhAySlFaYPK08KZnZB_zvaIuloJC5d5De8PO5o
+              token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTl9.pW9sdV1Vxrau3L-_33AvRF3zh_RdU_CWvGlDCT2Wf24
               user:
-                id: 147
+                id: 159
                 first_name: first_name3
                 last_name: last_name3
                 email: john@example.org
                 verified_login: false
-                created_at: '2020-02-15T02:44:10.860Z'
-                updated_at: '2020-02-15T02:44:10.860Z'
-                phone: '382137114'
+                created_at: '2020-02-15T03:22:04.259Z'
+                updated_at: '2020-02-15T03:22:04.259Z'
+                phone: '613697109'
                 city: Kraków
-                pair_id: 74
+                pair_id: 80
         '401':
-          description: Verification code and emails are incorrect, error is returned
+          description: |-
+            Verification code and emails are incorrect,
+                           error is returned
           examples:
             application/json:
               error: No user matching credentials

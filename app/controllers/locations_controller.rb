@@ -13,7 +13,7 @@ class LocationsController < ProtectedController
 
   def latest
     locations = Location.joins(:pair)
-                        .includes(pair: :users)
+                        .includes(pair: { users: { avatar_attachment: :blob } })
                         .order('pairs.finished DESC, created_at ASC')
                         .merge(Location.latest)
     render(json: locations, include: { pair: { include: :users } }, status: :ok)

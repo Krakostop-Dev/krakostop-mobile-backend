@@ -44,7 +44,9 @@ RSpec.configure do |config|
     request_example_name = example.metadata[:save]
     if request_example_name && respond_to?(request_example_name)
       param = example.metadata[:operation][:parameters].detect { |p| p[:name] == request_example_name }
-      param[:schema][:example] = send(request_example_name)
+      assignable = param[:schema]
+      assignable ||= param
+      assignable[:example] = send(request_example_name)
     end
   end
 end

@@ -52,12 +52,12 @@ paths:
           description: Location created
           examples:
             application/json:
-              id: 58
+              id: 283
               lat: "-15.1975"
               lng: '108.35723'
-              pair_id: 293
-              created_at: '2020-02-16T17:45:14.672Z'
-              updated_at: '2020-02-16T17:45:14.672Z'
+              pair_id: 519
+              created_at: '2020-02-23T22:55:29.040Z'
+              updated_at: '2020-02-23T22:55:29.040Z'
   "/api/v1/locations/latest":
     get:
       summary: Fetches last location for each pair
@@ -84,39 +84,43 @@ paths:
           description: Returns locations sorted by ranking ASC
           examples:
             application/json:
-            - id: 62
-              lat: "-2.0"
-              lng: '0.0'
-              pair_id: 295
-              created_at: '2020-02-16T17:45:14.729Z'
-              updated_at: '2020-02-16T17:45:14.729Z'
+            - id: 287
+              lat: "-51.0"
+              lng: '126.0'
+              pair_id: 521
+              created_at: '2020-02-23T22:55:29.072Z'
+              updated_at: '2020-02-23T22:55:29.072Z'
               pair:
-                id: 295
+                id: 521
                 finished: false
                 pair_nr: 1
-                created_at: '2020-02-16T17:45:14.721Z'
-                updated_at: '2020-02-16T17:45:14.721Z'
+                created_at: '2020-02-23T22:55:29.067Z'
+                updated_at: '2020-02-23T22:55:29.067Z'
                 users:
-                - id: 590
-                  first_name: first_name14
-                  last_name: last_name14
-                  email: email14@example.org
-                  verified_login: false
-                  created_at: '2020-02-16T17:45:14.735Z'
-                  updated_at: '2020-02-16T17:45:14.735Z'
-                  phone: '748410320'
-                  city: Kraków
-                  pair_id: 295
-                - id: 589
+                - id: 1041
                   first_name: first_name13
                   last_name: last_name13
                   email: email13@example.org
                   verified_login: false
-                  created_at: '2020-02-16T17:45:14.732Z'
-                  updated_at: '2020-02-16T17:45:14.732Z'
-                  phone: '376958309'
+                  created_at: '2020-02-23T22:55:29.074Z'
+                  updated_at: '2020-02-23T22:55:29.074Z'
+                  phone: '576920332'
                   city: Kraków
-                  pair_id: 295
+                  pair_id: 521
+                  messenger: 
+                  avatar: 
+                - id: 1042
+                  first_name: first_name14
+                  last_name: last_name14
+                  email: email14@example.org
+                  verified_login: false
+                  created_at: '2020-02-23T22:55:29.076Z'
+                  updated_at: '2020-02-23T22:55:29.076Z'
+                  phone: '344143664'
+                  city: Kraków
+                  pair_id: 521
+                  messenger: 
+                  avatar: 
   "/api/v1/login":
     post:
       summary: Sends verification code
@@ -188,18 +192,20 @@ paths:
           description: Verification code and emails are correct, token is returned
           examples:
             application/json:
-              token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1OTV9.evG69fj1Clp3eKlVTx5czjVRUdj45hmFKa1Z7GP-iuw
+              token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDQ3fQ.MeVxaA1Ldzy0ZqgwOHh8IaCIdUsgCOZlL0YlXt-qJEA
               user:
-                id: 595
+                id: 1047
                 first_name: first_name17
                 last_name: last_name17
                 email: john@example.org
                 verified_login: false
-                created_at: '2020-02-16T17:45:14.946Z'
-                updated_at: '2020-02-16T17:45:14.946Z'
-                phone: '738650054'
+                created_at: '2020-02-23T22:55:29.203Z'
+                updated_at: '2020-02-23T22:55:29.203Z'
+                phone: '731693897'
                 city: Kraków
-                pair_id: 298
+                pair_id: 524
+                messenger: 
+                avatar: 
         '401':
           description: |-
             Verification code and emails are incorrect,
@@ -207,6 +213,113 @@ paths:
           examples:
             application/json:
               error: No user matching credentials
+  "/api/v1/profile":
+    get:
+      summary: Returns information about current user
+      tags:
+      - Profile
+      produces:
+      - application/json
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Bearer <token>
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Cant find user for given token
+          examples:
+            application/json:
+              error: Unauthorized
+        '200':
+          description: Returns serialized current_user
+          examples:
+            application/json:
+              id: 1049
+              first_name: first_name19
+              last_name: last_name19
+              email: email17@example.org
+              verified_login: false
+              created_at: '2020-02-23T22:55:29.233Z'
+              updated_at: '2020-02-23T22:55:29.233Z'
+              phone: '572069936'
+              city: Kraków
+              pair_id: 525
+              messenger: 
+              avatar: 
+    put:
+      summary: Updates current user attributes
+      tags:
+      - Profile
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Bearer <token>
+        required: true
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: formData
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: formData
+        schema:
+          type: string
+      - name: phone
+        required: false
+        in: formData
+        schema:
+          type: string
+      - name: city
+        required: false
+        in: formData
+        schema:
+          type: string
+      - name: messenger
+        required: false
+        in: formData
+        schema:
+          type: string
+      - name: avatar
+        required: false
+        in: formData
+        schema:
+          type: string
+      responses:
+        '401':
+          description: Cant find user for given token
+          examples:
+            application/json:
+              error: Unauthorized
+        '200':
+          description: updates and returns current_user json
+          examples:
+            application/json:
+              pair_id: 527
+              id: 1053
+              first_name: lol
+              last_name: lol
+              phone: lol
+              city: lol
+              messenger: lol
+              verified_login: true
+              email: email21@example.org
+              created_at: '2020-02-23T22:55:29.282Z'
+              updated_at: '2020-02-23T22:55:29.294Z'
+              avatar: 
 securityDefinitions:
   Bearer:
     type: apiKey

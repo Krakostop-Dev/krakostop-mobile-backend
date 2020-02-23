@@ -9,7 +9,7 @@ class ProtectedController < ApplicationController
   private
 
   def authenticate_user
-    @current_user = User.includes(:pair).find(user_id)
+    @current_user = User.includes(:pair, avatar_attachment: :blob).find(user_id)
   rescue JWT::DecodeError, ActiveRecord::RecordNotFound
     render(json: { error: 'Unauthorized' }, status: :unauthorized)
   end

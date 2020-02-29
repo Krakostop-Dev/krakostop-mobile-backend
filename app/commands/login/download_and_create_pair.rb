@@ -27,6 +27,19 @@ module Login
         build_user(pair, 1, pair_data)
         build_user(pair, 2, pair_data)
         pair.save!
+        attach_avatars(pair)
+      end
+    end
+
+    def attach_avatars(pair)
+      pair.users.each do |user|
+        user.avatar.attach(
+          io: File.open(
+            Rails.root.join('app', 'assets', 'images', 'avatar-default.png')
+          ),
+          filename: 'avatar-default.png',
+          content_type: 'image/png'
+        )
       end
     end
 

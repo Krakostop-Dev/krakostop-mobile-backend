@@ -7,19 +7,19 @@ describe 'Locations' do
       consumes 'application/json'
       produces 'application/json'
       security [Bearer: {}]
-      parameter name: :"Authorization", in: :header, description: 'Bearer <token>', required: true, schema: { type: :string }
+      parameter name: :Authorization, in: :header, description: 'Bearer <token>', required: true, schema: { type: :string }
       parameter name: :data, in: :body, required: true, schema: {
-          type: :object,
-          properties: {
-              lat: { type: :string },
-              lng: { type: :string }
-          },
-          required: %w[lat lng]
+        type: :object,
+        properties: {
+          lat: { type: :string },
+          lng: { type: :string }
+        },
+        required: %w[lat lng]
       }
 
       response '401', 'Cant find user for given token', save_response: true do
         let(:data) { { lat: '-15.19750', lng: '108.35723' } }
-        let(:"Authorization") { "Bearer bad_token_here" }
+        let(:Authorization) { 'Bearer bad_token_here' }
         run_test!
       end
 
@@ -29,7 +29,7 @@ describe 'Locations' do
         let!(:user2) { create(:user, pair: pair) }
         let(:pair) { create(:pair, pair_nr: 2, finished: true) }
 
-        let(:"Authorization") { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
+        let(:Authorization) { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
 
         it 'doesnt create location', save: :data, save_response: true do |example|
           submit_request(example.metadata)
@@ -50,7 +50,7 @@ describe 'Locations' do
         let!(:user2) { create(:user, pair: pair) }
         let(:pair) { create(:pair, pair_nr: 2, finished: false) }
 
-        let(:"Authorization") { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
+        let(:Authorization) { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
         ENV['FINISH_COORDINATES'] = '50.3525805,19.5614186'
 
         context 'When new location is within finished race threshold' do
@@ -100,16 +100,16 @@ describe 'Locations' do
     get 'Fetches last location for each pair' do
       tags 'Location'
       produces 'application/json'
-      parameter name: :"Authorization", in: :header, description: 'Bearer <token>', required: true, schema: { type: :string }
+      parameter name: :Authorization, in: :header, description: 'Bearer <token>', required: true, schema: { type: :string }
       security [Bearer: {}]
 
       response '401', 'Cant find user for given token', save_response: true do
-        let(:"Authorization") { "Bearer bad_token_here" }
+        let(:Authorization) { 'Bearer bad_token_here' }
         run_test!
       end
 
       response '200', 'Returns locations sorted by ranking ASC', save_response: true do
-        let(:"Authorization") { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
+        let(:Authorization) { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
         let!(:user1) { create(:user, :with_code, pair: pair) }
         let!(:user2) { create(:user, :with_code, pair: pair) }
         let(:pair) { create(:pair, :with_locations) }

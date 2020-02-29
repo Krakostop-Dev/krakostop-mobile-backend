@@ -6,10 +6,10 @@ describe 'Locations' do
       tags 'Profile'
       produces 'application/json'
       security [Bearer: {}]
-      parameter name: :"Authorization", in: :header, description: 'Bearer <token>', required: true, schema: { type: :string }
+      parameter name: :Authorization, in: :header, description: 'Bearer <token>', required: true, schema: { type: :string }
 
       response '401', 'Cant find user for given token', save_response: true do
-        let(:"Authorization") { "Bearer bad_token_here" }
+        let(:Authorization) { 'Bearer bad_token_here' }
         run_test!
       end
 
@@ -18,7 +18,7 @@ describe 'Locations' do
         let!(:user2) { create(:user, pair: pair) }
         let(:pair) { create(:pair, pair_nr: 2, finished: true) }
 
-        let(:"Authorization") { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
+        let(:Authorization) { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
 
         it 'returns json', save: :data, save_response: true do |example|
           submit_request(example.metadata)
@@ -33,7 +33,7 @@ describe 'Locations' do
       consumes 'multipart/form-data'
       produces 'application/json'
       security [Bearer: {}]
-      parameter name: :"Authorization", in: :header, description: 'Bearer <token>', required: true, schema: { type: :string }
+      parameter name: :Authorization, in: :header, description: 'Bearer <token>', required: true, schema: { type: :string }
       parameter name: :first_name, required: false, in: :formData, schema: { type: :string }
       parameter name: :last_name, required: false, in: :formData, schema: { type: :string }
       parameter name: :phone, required: false, in: :formData, schema: { type: :string }
@@ -42,21 +42,21 @@ describe 'Locations' do
       parameter name: :avatar, required: false, in: :formData, schema: { type: :string }
 
       response '401', 'Cant find user for given token', save_response: true do
-        let(:first_name) {'lol'}
-        let(:last_name) {'lol'}
-        let(:phone) {'lol'}
-        let(:city) {'lol'}
-        let(:messenger) {'lol'}
-        let(:"Authorization") { "Bearer bad_token_here" }
+        let(:first_name) { 'lol' }
+        let(:last_name) { 'lol' }
+        let(:phone) { 'lol' }
+        let(:city) { 'lol' }
+        let(:messenger) { 'lol' }
+        let(:Authorization) { 'Bearer bad_token_here' }
         run_test!
       end
 
       response '200', 'updates and returns current_user json' do
-        let(:first_name) {'lol'}
-        let(:last_name) {'lol'}
-        let(:phone) {'lol'}
-        let(:city) {'lol'}
-        let(:messenger) {'lol'}
+        let(:first_name) { 'lol' }
+        let(:last_name) { 'lol' }
+        let(:phone) { 'lol' }
+        let(:city) { 'lol' }
+        let(:messenger) { 'lol' }
         let(:data) do
           {
             first_name: first_name,
@@ -67,12 +67,11 @@ describe 'Locations' do
           }
         end
 
-
         let!(:user1) { create(:user, pair: pair) }
         let!(:user2) { create(:user, pair: pair) }
         let(:pair) { create(:pair, pair_nr: 2, finished: true) }
 
-        let(:"Authorization") { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
+        let(:Authorization) { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
 
         it 'returns json', save_response: true do |example|
           submit_request(example.metadata)

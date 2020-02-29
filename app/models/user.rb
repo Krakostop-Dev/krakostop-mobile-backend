@@ -12,9 +12,11 @@ class User < ApplicationRecord
 
   def serializable_hash(options = {})
     super(options)
-        .except('verification_code')
-        .merge(avatar: avatar_icon_url)
+      .except('verification_code')
+      .merge(avatar: avatar_icon_url)
   end
+
+  private
 
   def avatar_icon_url
     GenerateAvatarIconUrl.new.call(avatar)

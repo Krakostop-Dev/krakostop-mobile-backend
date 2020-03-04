@@ -19,8 +19,10 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-RSpec.configure do |config|
-  config.swagger_dry_run = false
+if Rails.env.test?
+  RSpec.configure do |config|
+    config.swagger_dry_run = false
+  end
 end
 
 module KrakostopMobileBackend

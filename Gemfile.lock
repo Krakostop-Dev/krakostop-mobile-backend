@@ -182,10 +182,6 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.2)
-    rswag (2.2.0)
-      rswag-api (= 2.2.0)
-      rswag-specs (= 2.2.0)
-      rswag-ui (= 2.2.0)
     rswag-api (2.2.0)
       railties (>= 3.1, < 6.1)
     rswag-specs (2.2.0)
@@ -246,7 +242,9 @@ DEPENDENCIES
   rails (~> 6.0.2.1)
   retryable
   rspec-rails
-  rswag
+  rswag-api
+  rswag-specs
+  rswag-ui
   rubocop
   spring
   spring-watcher-listen (~> 2.0.0)

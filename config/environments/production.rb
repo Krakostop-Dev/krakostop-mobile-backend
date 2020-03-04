@@ -55,12 +55,12 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
   config.action_mailer.smtp_settings = {
-      address: ENV.fetch('MAILER_SMTP_ADDRESS'),
+      address: ENV["MAILER_SMTP_ADDRESS"],
       authentication: :plain,
-      domain: ENV.fetch('MAILER_SMTP_DOMAIN'),
+      domain: ENV["MAILER_SMTP_DOMAIN"],
       enable_starttsl_auto: true,
-      user_name: ENV.fetch('MAILER_SMTP_USERNAME'),
-      password: ENV.fetch('MAILER_SMTP_PASSWORD')
+      user_name: ENV["MAILER_SMTP_USERNAME"],
+      password: ENV["MAILER_SMTP_PASSWORD"]
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.

@@ -54,6 +54,9 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "krakostop_mobile_backend_production"
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.delivery_method = :smtp
+
   config.action_mailer.smtp_settings = {
       address: ENV["MAILER_SMTP_ADDRESS"],
       authentication: :plain,

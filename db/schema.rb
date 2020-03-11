@@ -62,10 +62,12 @@ ActiveRecord::Schema.define(version: 2020_02_23_202640) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "phone"
+    t.boolean "is_phone_enabled", default: true
     t.string "city"
     t.string "verification_code"
     t.bigint "pair_id", null: false
     t.string "messenger"
+    t.string "facebook", default: "facebook.com/zuck"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["pair_id"], name: "index_users_on_pair_id"
   end

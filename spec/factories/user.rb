@@ -4,6 +4,7 @@ FactoryBot.define do
     sequence(:last_name) { |n| "last_name#{n}" }
     sequence(:email) { |n| "email#{n}@example.org" }
     verification_code { nil }
+    facebook { 'facebook.com/zuck' }
     phone { rand(10**9).to_s }
     city { 'Kraków' }
   end

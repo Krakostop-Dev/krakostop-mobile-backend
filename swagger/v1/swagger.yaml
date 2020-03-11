@@ -105,10 +105,13 @@ paths:
                   created_at: '2020-02-23T22:55:29.074Z'
                   updated_at: '2020-02-23T22:55:29.074Z'
                   phone: '576920332'
+                  is_phone_enabled: true
                   city: Kraków
                   pair_id: 521
-                  messenger: 
-                  avatar: 
+                  messenger:
+                  facebook: 'facebook.com/profile'
+                  avatar:
+              avatar:
                 - id: 1042
                   first_name: first_name14
                   last_name: last_name14
@@ -117,10 +120,12 @@ paths:
                   created_at: '2020-02-23T22:55:29.076Z'
                   updated_at: '2020-02-23T22:55:29.076Z'
                   phone: '344143664'
+                  is_phone_enabled: true
                   city: Kraków
                   pair_id: 521
-                  messenger: 
-                  avatar: 
+                  messenger:
+                  facebook: 'facebook.com/profile'
+                  avatar:
   "/api/v1/login":
     post:
       summary: Sends verification code
@@ -202,10 +207,12 @@ paths:
                 created_at: '2020-02-23T22:55:29.203Z'
                 updated_at: '2020-02-23T22:55:29.203Z'
                 phone: '731693897'
+                is_phone_enabled: true
                 city: Kraków
                 pair_id: 524
-                messenger: 
-                avatar: 
+                messenger:
+                facebook: 'facebook.com/profile'
+                avatar:
         '401':
           description: |-
             Verification code and emails are incorrect,
@@ -247,9 +254,11 @@ paths:
               created_at: '2020-02-23T22:55:29.233Z'
               updated_at: '2020-02-23T22:55:29.233Z'
               phone: '572069936'
+              is_phone_enabled: true
               city: Kraków
               pair_id: 525
-              messenger: 
+              messenger:
+              facebook: 'facebook.com/profile'
               avatar: 
     put:
       summary: Updates current user attributes
@@ -298,6 +307,16 @@ paths:
         in: formData
         schema:
           type: string
+      - name: facebook
+        required: false
+        in: formData
+        schema:
+          type: string
+      - name: is_phone_enabled
+        required: false
+        in: formData
+        schema:
+          type: bool
       responses:
         '401':
           description: Cant find user for given token
@@ -312,9 +331,10 @@ paths:
               id: 1053
               first_name: lol
               last_name: lol
-              phone: lol
-              city: lol
-              messenger: lol
+              is_phone_enabled: true
+              city: Kraków
+              messenger:
+              facebook: 'facebook.com/profile'
               verified_login: true
               email: email21@example.org
               created_at: '2020-02-23T22:55:29.282Z'

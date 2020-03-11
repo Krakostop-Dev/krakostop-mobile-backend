@@ -15,9 +15,11 @@ class ProfilesController < ProtectedController
       :first_name,
       :last_name,
       :phone,
+      :is_phone_enabled,
       :city,
       :messenger,
-      :avatar
+      :facebook,
+      :avatar,
     ).merge(verified_login: true)
   end
 end

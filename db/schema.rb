@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_23_202640) do
+ActiveRecord::Schema.define(version: 2020_05_19_132127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 2020_02_23_202640) do
     t.string "verification_code"
     t.bigint "pair_id", null: false
     t.string "messenger"
+    t.boolean "is_phone_enabled", default: true
+    t.string "facebook"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["pair_id"], name: "index_users_on_pair_id"
   end

@@ -49,7 +49,8 @@ module Login
         last_name: pair_data[:"surname#{number}"],
         city: pair_data[:"city#{number}"],
         phone: pair_data[:"phone#{number}"],
-        email: pair_data[:"email#{number}"]
+        email: pair_data[:"email#{number}"],
+        facebook: pair_data[:"facebook#{number}"]
       )
     end
   end

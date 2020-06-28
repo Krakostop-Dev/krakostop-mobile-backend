@@ -11,7 +11,7 @@ FactoryBot.define do
 
     trait :with_locations do
       after :create do |pair|
-        create_list :location, 3, pair: pair
+        create_list :location, 3, pair: pair, sender: pair.users.first
       end
     end
   end

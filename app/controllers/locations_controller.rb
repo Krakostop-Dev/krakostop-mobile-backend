@@ -6,28 +6,45 @@ class LocationsController < ProtectedController
       return
     end
 
-    location = Location.create!(loc_params)
-    current_user.pair.update!(finished: true) if finished_race?(location)
+    location = Location.new(loc_params)
+    distance = distance_to_finish_line(location)
+
+    if distance <= FINISH_THRESHOLD
+      location.update!(distance_left: 0)
+      current_user.pair.update!(finished: true)
+    else
+      location.update!(distance_left: distance.to_i)
+    end
+
     render(json: location, status: :created)
   end
 
   def latest
     locations = Location.joins(:pair)
                         .includes(pair: { users: { avatar_attachment: :blob } })
-                        .order('pairs.finished DESC, created_at ASC')
+                        .order('distance_left ASC, created_at ASC')
                         .merge(Location.latest)
-    render(json: locations, include: { pair: { include: :users } }, status: :ok)
+
+    json = locations.as_json(include: { pair: { include: :users } })
+                    .each_with_index do |el,i| 
+                      el["pair"]["ranking"] = i+1
+                    end
+
+    render(json: json, status: :ok)
   end
 
   private
 
   def loc_params
-    params.permit(:lat, :lng).merge(pair: current_user.pair)
+    params.permit(:lat, :lng)
+          .merge(pair: current_user.pair,
+                 sender: current_user)
   end
 
-  def finished_race?(location)
+
+  def distance_to_finish_line(location)
     lat, lng = ENV['FINISH_COORDINATES'].split(',').map(&:strip)
     finish_line = Geokit::LatLng.new(lat, lng)
-    location.distance_to(finish_line, units: :kms) <= FINISH_THRESHOLD
+    location.distance_to(finish_line, units: :kms)
   end
 end

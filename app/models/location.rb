@@ -2,6 +2,7 @@ class Location < ApplicationRecord
   acts_as_mappable
 
   belongs_to :pair
+  belongs_to :sender, class_name: 'User'
 
   validates :lat, presence: true
   validates :lng, presence: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_132127) do
+ActiveRecord::Schema.define(version: 2020_06_28_162720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,11 @@ ActiveRecord::Schema.define(version: 2020_05_19_132127) do
     t.bigint "pair_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "distance_left", null: false
+    t.bigint "sender_id", null: false
     t.index ["lat", "lng"], name: "index_locations_on_lat_and_lng"
     t.index ["pair_id"], name: "index_locations_on_pair_id"
+    t.index ["sender_id"], name: "index_locations_on_sender_id"
   end
 
   create_table "pairs", force: :cascade do |t|
@@ -73,4 +76,5 @@ ActiveRecord::Schema.define(version: 2020_05_19_132127) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "locations", "users", column: "sender_id"
 end

@@ -109,10 +109,8 @@ describe 'Locations' do
       end
 
       response '200', 'Returns locations sorted by ranking ASC', save_response: true do
-        let(:Authorization) { "Bearer #{Login::JwtEncrypter.new.call(user1)}" }
-        let!(:user1) { create(:user, :with_code, pair: pair) }
-        let!(:user2) { create(:user, :with_code, pair: pair) }
-        let(:pair) { create(:pair, :with_locations) }
+        let!(:Authorization) { "Bearer #{Login::JwtEncrypter.new.call(pair.users.first)}" }
+        let(:pair) { create(:pair, :with_users, :with_locations,) }
 
         run_test!
       end

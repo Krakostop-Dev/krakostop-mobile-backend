@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
       resource :profile, only: [:show, :update]
 
+      resource :calendar, only: [:show]
+
       resources :locations, only: [:create] do
         collection do
           get :latest
